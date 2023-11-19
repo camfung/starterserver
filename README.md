@@ -21,7 +21,7 @@ This application is an Express server integrated with Passport.js for authentica
   - `index.js`: Aggregates all controller routes and exports them for use in the main application file.
 - `middlewares/`: Contains middleware configurations, including:
   - `passport.js`: Configuration for Passport.js authentication strategies and session serialization/deserialization.
-- `.env`: (Not tracked by Git) Contains environment variables such as database connection details and session secret.
+- `.env`: Contains environment variables such as database connection details and session secret.
 - `.gitignore`: Specifies intentionally untracked files to ignore by Git.
 
 ## Setup and Installation
