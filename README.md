@@ -1,4 +1,4 @@
-# Express and Passport.js Application
+# Express and Passport.js Starter server
 
 This application is an Express server integrated with Passport.js for authentication, using a PostgreSQL database. It follows best practices in code organization and structure.
 
