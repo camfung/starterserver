@@ -1,0 +1,11 @@
+{
+  "name": "starterserver",
+  "version": "1.0.0",
+  "description": "Express starter server for connecting to a postgres db and connecting to apis with passport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
