@@ -30,3 +30,13 @@ This application is an Express server integrated with Passport.js for authentica
    ```bash
    npm install
    ```
+2. **Run the Server**:
+   ```bash
+   npm start
+   ```
+
+### Notes for Using the README
+
+- Replace placeholders like `CLIENT_ID` with actual values or further instructions as needed.
+- Specify the license under which your project is released in the License section.
+- Add or modify sections as your project evolves. For instance, if you add testing or additional features, update the README accordingly.
