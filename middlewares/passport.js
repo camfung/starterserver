@@ -24,59 +24,59 @@ passport.deserializeUser(async function (id, done) {
   }
 });
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: config.CLIENT_ID,
-//       clientSecret: config.CLIENT_SECRET,
-//       callbackURL: config.CALLBACK_URL,
-//     },
-//     async function (accessToken, refreshToken, profile, cb) {
-//       try {
-//         const user = await findOrCreateUser(profile, accessToken);
-//         return cb(null, user);
-//       } catch (err) {
-//         return cb(err);
-//       }
-//     }
-//   )
-// );
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: config.CLIENT_ID,
+      clientSecret: config.CLIENT_SECRET,
+      callbackURL: config.CALLBACK_URL,
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      try {
+        const user = await findOrCreateUser(profile, accessToken);
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
+      }
+    }
+  )
+);
 
-// async function findOrCreateUser(profile, accessToken) {
-//   const client = await pool.connect();
-//   try {
-//     // Check if user exists
-//     let res = await client.query("SELECT * FROM users WHERE google_id = $1", [
-//       profile.id,
-//     ]);
-//     if (res.rows.length > 0) {
-//       // update the access token if it has changed
-//       if (res.rows[0].access_token !== accessToken) {
-//         await client.query(
-//           "UPDATE users SET access_token = $1, access_token_last_updated = CURRENT_TIMESTAMP WHERE google_id = $2",
-//           [accessToken, profile.id]
-//         );
-//       }
-//       return res.rows[0]; // User exists
-//     }
+async function findOrCreateUser(profile, accessToken) {
+  const client = await pool.connect();
+  try {
+    // Check if user exists
+    let res = await client.query("SELECT * FROM users WHERE google_id = $1", [
+      profile.id,
+    ]);
+    if (res.rows.length > 0) {
+      // update the access token if it has changed
+      if (res.rows[0].access_token !== accessToken) {
+        await client.query(
+          "UPDATE users SET access_token = $1, access_token_last_updated = CURRENT_TIMESTAMP WHERE google_id = $2",
+          [accessToken, profile.id]
+        );
+      }
+      return res.rows[0]; // User exists
+    }
 
-//     // If not, create new user
-//     res = await client.query(
-//       "INSERT INTO users (google_id, email, name, accessToken, access_token_last_updated) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-//       [
-//         profile.id,
-//         profile.emails[0].value,
-//         profile.displayName,
-//         accessToken,
-//         Date.now(),
-//       ]
-//     );
-//     return res.rows[0];
-//   } catch (err) {
-//     throw err;
-//   } finally {
-//     client.release();
-//   }
-// }
+    // If not, create new user
+    res = await client.query(
+      "INSERT INTO users (google_id, email, name, accessToken, access_token_last_updated) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [
+        profile.id,
+        profile.emails[0].value,
+        profile.displayName,
+        accessToken,
+        Date.now(),
+      ]
+    );
+    return res.rows[0];
+  } catch (err) {
+    throw err;
+  } finally {
+    client.release();
+  }
+}
 
 module.exports = passport;

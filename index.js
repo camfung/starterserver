@@ -1,7 +1,6 @@
 const express = require("express");
 const session = require("express-session");
 const controllerRoutes = require("./controllers");
-const passport = require("passport");
 const config = require("./config");
 const passport = require("./middlewares/passport"); // Adjust the path as necessary
 
